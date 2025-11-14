@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.10
+    commands:
+      - python -m pip install --upgrade pip
+      - pip install -r requirements.txt
+  pre_build:
+    commands:
+      - echo "Pre-build (optional): run tests"
+      # - pytest || true
+  build:
+    commands:
+      - echo "Packaging application for Elastic Beanstalk"
+      - zip -r application.zip . -x '*.git*' 'tests/*' 'node_modules/*'
+artifacts:
+  files:
+    - application.zip
+  discard-paths: yes
